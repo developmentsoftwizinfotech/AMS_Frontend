@@ -1,0 +1,95 @@
+/* Add styles for the table if needed */
+p-table {
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  th, td {
+    padding: 10px;
+  }
+  
+  .p-dropdown, .p-checkbox {
+    width: 100%;
+  }
+  .text-danger {
+    color: #ff0000;
+}
+.Button-CSS {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.Button-CSS .p-button {
+    background-color: #007bff; /* Restore background color */
+    color: white !important; /* Ensure text color applies */
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.Button-CSS .p-button:hover {
+    background-color: #0056b3;
+}
+
+p-calendar.is-invalid {
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: #f3031aa8;
+}
+
+.action-icon {
+    font-size: 1.5rem; /* Adjust icon size */
+    margin-right: 10px; /* Space between icons */
+    cursor: pointer; /* Make the icon clickable */
+    transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+.pi-pen-to-square {
+    color: #28a745; /* Success color for edit icon */
+}
+::ng-deep.p-sort-icon {
+    transition: transform 0.2s ease;
+  }
+  
+ ::ng-deep .p-highlight .p-sort-icon {
+    transform: rotate(180deg); /* Rotate for descending order */
+  }
+  
+ ::ng-deep .p-highlight-desc .p-sort-icon {
+    transform: rotate(0deg); /* No rotation for ascending order */
+  }
+  ::ng-deep .table > :not(caption) > * > * {
+    background-color: transparent;
+}
+::ng-deep .table-wrap tr > td:nth-child(3) {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+/* Custom styles for the accept button */
+.custom-accept-btn {
+    background-color: #28a745;  /* Green color */
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    margin-right: 15px;
+  }
+  
+  .custom-accept-btn:hover {
+    background-color: #218838;  /* Darker green on hover */
+  }
+  
+  /* For the icon within the button */
+  .custom-accept-btn .p-button-icon {
+    color: white; /* Icon color */
+  }
+  
+  /* Ensure no ripple effect on the accept button */
+  .custom-accept-btn.p-ripple {
+    display: none; /* Remove ripple effect if needed */
+  }
+  

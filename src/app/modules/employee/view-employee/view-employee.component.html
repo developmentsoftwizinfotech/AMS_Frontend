@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="mb-3 header-container">
+      <h2>Employee Details</h2>
+      <i class="pi pi-times close-icon" (click)="close()"></i>
+    </div>
+    <div class="">
+      <div class="row" >
+        <div class="col-6">
+          <strong>First Name:</strong>
+          <p>{{ viewEmployeeDetail.firstName }}</p>
+        </div>
+        <div class="col-6">
+          <strong>Last Name:</strong>
+          <p>{{ viewEmployeeDetail.lastName }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <strong>Gender:</strong>
+          <p>{{ viewEmployeeDetail.gender }}</p>
+        </div>
+        <div class="col-6">
+          <strong>Date of Birth:</strong>
+          <p>{{ viewEmployeeDetail.dob | date: 'yyyy-MM-dd' }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <strong>Email:</strong>
+          <p>{{ viewEmployeeDetail.email }}</p>
+        </div>
+        <div class="col-6">
+          <strong>Mobile:</strong>
+          <p>{{ viewEmployeeDetail.mobile }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <strong>Date of Joining (DOJ):</strong>
+          <p>{{ viewEmployeeDetail.doj | date: 'yyyy-MM-dd' }}</p>
+        </div>
+        <div class="col-6">
+          <strong>Date of Leaving (DOL):</strong>
+          <p>{{ viewEmployeeDetail.dol | date: 'yyyy-MM-dd' }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <strong>Salary:</strong>
+          <p>{{ viewEmployeeDetail.salary |  number:'1.0-0' }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  

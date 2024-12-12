@@ -1,0 +1,42 @@
+
+<p-toast />
+<ngx-loading [show]="isLoading"></ngx-loading>
+
+<div class="row">
+    <div class="col-md-4 mt-3 d-flex">
+       {{formName}} Designation 
+    </div>
+    <div class="col-md-8 mt-3 d-flex justify-content-end">
+        <button type="reset" class="btn btn-danger me-3" (click)="close()">Cancel</button>
+        <button type="submit" class="btn btn-primary" (click)="Submit()">{{ isEdit ? 'Update' : 'Submit' }}</button>
+    </div>
+</div>
+
+<form [formGroup]="designationDetailsForm" class="p-4" (ngSubmit)="Submit()">
+    <div class="row">
+        <div class="col-12">
+            <label for="designationName" class="form-label">Designation Name<span style="color: red;">*</span></label>
+            <input formControlName="designationName" id="designationName" class="form-control"
+                [ngClass]="{ 'is-invalid': designationDetailsForm.get('designationName')?.touched && designationDetailsForm.get('designationName')?.invalid }"
+                placeholder="Enter Designation Name" maxlength="50" />
+                <small
+                *ngIf="designationDetailsForm.get('designationName')?.invalid && 
+                        (designationDetailsForm.get('designationName')?.touched || designationDetailsForm.get('designationName')?.dirty)">
+                <!-- Required Validation -->
+                <span style="color: red;" *ngIf="designationDetailsForm.get('designationName')?.errors?.['required']">
+                  Required
+                </span>
+                <!-- Maxlength Validation -->
+                <span style="color: red;" *ngIf="designationDetailsForm.get('designationName')?.errors?.['maxlength']">
+                  Designation Name should have at most 50 characters
+                </span>
+                <!-- Minlength Validation -->
+                <span style="color: red;" *ngIf="designationDetailsForm.get('designationName')?.errors?.['minlength']">
+                  Designation Name should have at least 3 characters
+                </span>
+              </small>
+              
+              
+        </div>
+    </div>
+</form>

@@ -1,0 +1,48 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="employeeName">Employee Name</label>
+      <input id="employeeName" formControlName="employeeName" class="form-control" type="text" placeholder="Enter Employee Name">
+      <div *ngIf="employeeForm.get('employeeName')?.invalid && employeeForm.get('employeeName')?.touched" class="text-danger">
+        Employee Name is required.
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="timeIn">Time In</label>
+      <input id="timeIn" formControlName="timeIn" class="form-control" type="time">
+      <div *ngIf="employeeForm.get('timeIn')?.invalid && employeeForm.get('timeIn')?.touched" class="text-danger">
+        Time In is required.
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="timeOut">Time Out</label>
+      <input id="timeOut" formControlName="timeOut" class="form-control" type="time">
+      <div *ngIf="employeeForm.get('timeOut')?.invalid && employeeForm.get('timeOut')?.touched" class="text-danger">
+        Time Out is required.
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="leaveType">Leave Type</label>
+      <select id="leaveType" formControlName="leaveType" class="form-control">
+        <option value="">Select Leave Type</option>
+        <option value="halfLeave">Half Leave</option>
+        <option value="shortLeave">Short Leave</option>
+        <option value="fullLeave">Full Leave</option>
+      </select>
+      <div *ngIf="employeeForm.get('leaveType')?.invalid && employeeForm.get('leaveType')?.touched" class="text-danger">
+        Leave Type is required.
+      </div>
+    </div>
+  
+    <div class="form-check">
+      <input id="approvedLeave" formControlName="approvedLeave" class="form-check-input" type="checkbox">
+      <label class="form-check-label" for="approvedLeave">
+        Approved Leave
+      </label>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Submit</button>
+  </form>
+  

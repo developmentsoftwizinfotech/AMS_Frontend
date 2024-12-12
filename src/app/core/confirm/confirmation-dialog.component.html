@@ -1,0 +1,21 @@
+<div class="dialog">
+    <span class="block text-900  mb-4">
+        <i [class]="options.icon"></i>
+        {{ options.message }}</span>
+        <div class="float-end">
+    <div class="flex flex-row-reverse flex-wrap card-container yellow-container mt-2 d-flex">
+        <div class="flex align-items-center justify-content-center m-2"><button *ngIf="options.acceptVisible"
+                type="button" pButton [label]="options.acceptLabel ?? ''" [icon]="options.acceptIcon ?? ''"
+                value="Update" class="p-button-sm p-button-outlined" (click)="onAcceptClick($event)"></button>
+        </div>
+        <div class="flex align-items-center justify-content-center m-2 ">
+            <button *ngIf="options.rejectVisible" type="button" pButton [label]="options.rejectLabel ?? ''"
+                [icon]="options.rejectIcon ?? ''" class="p-button-sm p-button-danger p-button-outlined "
+                (click)="onRejectClick($event)">
+
+            </button>
+        </div>
+        </div>
+    </div>
+
+</div>

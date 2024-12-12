@@ -1,0 +1,24 @@
+// .d-flex {
+//     display: flex; /* Ensure the buttons are displayed as flex items */
+// }
+
+/* Hover effect for the accept button */
+.card-container .p-button {
+    border-radius: 10px;
+}
+.card-container .p-button-outlined:hover {
+    background-color: #007bff; 
+    color: white;
+    border-color: #007bff; 
+    transform: scale(1.05); 
+    transition: all 0.3s ease; 
+}
+
+/* Hover effect for the reject button */
+.card-container .p-button-danger.p-button-outlined:hover {
+    background-color: #f44336; 
+    color: white; 
+    border-color: #f44336; 
+    transform: scale(1.05); 
+    transition: all 0.3s ease; 
+}

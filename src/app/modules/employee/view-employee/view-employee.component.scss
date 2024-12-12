@@ -1,0 +1,38 @@
+
+h2 {
+    font-size: 24px;
+    font-weight: bold; 
+    margin: 0; 
+    color: #333; 
+  }
+  
+
+  .close-icon{
+    float: right; 
+    font-size: 20px; 
+    cursor: pointer; 
+    color: #999; 
+    transition: color 0.3s ease; 
+    margin-top: -26px;
+    margin-right: 20px;
+  }
+  
+  .close-icon:hover {
+    color: #f00;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 10px 15px; 
+    border-bottom: 1px solid #ddd;
+  }
+  
+
+  header-container {
+    background-color: #f9f9f9; 
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  }
+  
