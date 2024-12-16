@@ -12,6 +12,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmationDialogComponent } from 'src/app/core/confirm/confirmation-dialog.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-designation',
@@ -27,7 +28,7 @@ export class DesignationComponent implements OnInit {
   desigName :any;
   ref: DynamicDialogRef | undefined;
   desigDetail: any;
-  constructor(public dialogService:DialogService,private designationService:DesignationService,private loading:NgxLoadingService,public confirmationService:ConfirmationService,private messageService: MessageService){
+  constructor(public dialogService:DialogService,private designationService:DesignationService,private loading:NgxLoadingService,public confirmationService:ConfirmationService,private toastr: ToastrService){
 
   }
   ngOnInit(): void {
@@ -38,7 +39,6 @@ export class DesignationComponent implements OnInit {
     this.designationService.getDesigName().subscribe((res: any) => {
       if (res) {
         this.desigName = res.designationDTO; 
-        console.log(this.desigName);
       } 
     }, (error) => {
       console.error('Error fetching designation names', error);
@@ -54,7 +54,6 @@ export class DesignationComponent implements OnInit {
       });
       this.ref.onClose.subscribe((data: any) => {
           if (data) {
-             console.log('hello add component')
              this.getDesigName()
  
           } else {
@@ -77,7 +76,6 @@ export class DesignationComponent implements OnInit {
   
         this.ref.onClose.subscribe((result: any) => {
           if (result) {
-            console.log('Edited Data:', result);
             this.getDesigName()
           }
         });
@@ -107,7 +105,7 @@ onConfirmDelete(data) {
   const id = data.designationId
   this.designationService.deletedesignName(id).subscribe((res)=>{
     if(res){
-      console.log(res)
+      this.toastr.success('Employee deleted successfully!');
       this.getDesigName()
     }
   })

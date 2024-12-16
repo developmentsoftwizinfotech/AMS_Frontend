@@ -14,7 +14,7 @@
         *ngIf="employeeForm.get('firstName')?.invalid && 
                 (employeeForm.get('firstName')?.touched)">
         <!-- Required Validation -->
-        <span  style="color: red;" *ngIf="employeeForm.get('firstName')?.errors?.['required']">
+        <span  style="color: red;"*ngIf="employeeForm.get('firstName')?.touched && employeeForm.get('firstName')?.errors?.['required']">
           Required
         </span>
         <!-- Maxlength Validation -->
@@ -80,6 +80,7 @@
           inputId="icondisplay"
           placeholder="Select date of birth" 
           dateFormat="dd/mm/yy"
+          [maxDate]="minDate"
           />
           <small *ngIf="employeeForm.get('dob')?.touched && employeeForm.get('dob')?.invalid" style="color: red;">
             Date of birth is required.
@@ -148,6 +149,7 @@
         inputId="icondisplay"
         placeholder="Select date of joining" 
         dateFormat="dd/mm/yy"
+        [maxDate]="maxDate"
        />
         <small *ngIf="employeeForm.get('doj')?.touched && employeeForm.get('doj')?.invalid" style="color: red;">
           Date of joining is required.
@@ -176,10 +178,23 @@
       <!-- Salary -->
       <div class="col-6 mb-3">
         <label for="salary" class="form-label">Salary<span style="color: red;">*</span></label>
-        <input type="number" formControlName="salary" id="salary" class="form-control"   placeholder="Enter Salary" />
-         <small *ngIf="employeeForm.get('salary')?.touched && employeeForm.get('salary')?.invalid" style="color: red;">
+        <input type="text" formControlName="salary" id="salary" class="form-control"   placeholder="Enter Salary"  (keypress)="allowOnlyNumbers($event)"/>
+        <small *ngIf="employeeForm.get('salary')?.touched && employeeForm.get('salary')?.errors?.['required']" style="color: red;">
           Salary is required.
-         </small>
+        </small>
+        
+        <small *ngIf="employeeForm.get('salary')?.dirty && employeeForm.get('salary')?.hasError('maxlength')" style="color: red;">
+          Salary should have at most 8 characters
+        </small>
+        
+      <!-- <small
+        *ngIf="salaryControl?.touched && salaryControl?.hasError('pattern')"
+        style="color: red;"
+      >
+        Salary must be at least 2 decimal places.
+      </small> -->
+ 
+      
       </div>
           <!-- Photo -->
     <div class="col-6 mb-3">

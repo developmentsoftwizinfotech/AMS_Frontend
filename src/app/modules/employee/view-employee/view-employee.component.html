@@ -1,4 +1,4 @@
-<div class="card">
+<div>
     <div class="mb-3 header-container">
       <h2>Employee Details</h2>
       <i class="pi pi-times close-icon" (click)="close()"></i>
@@ -21,7 +21,7 @@
         </div>
         <div class="col-6">
           <strong>Date of Birth:</strong>
-          <p>{{ viewEmployeeDetail.dob | date: 'yyyy-MM-dd' }}</p>
+          <p>{{ viewEmployeeDetail.dob |  date: 'dd-MM-yyy' }}</p>
         </div>
       </div>
       <div class="row">
@@ -37,17 +37,17 @@
       <div class="row">
         <div class="col-6">
           <strong>Date of Joining (DOJ):</strong>
-          <p>{{ viewEmployeeDetail.doj | date: 'yyyy-MM-dd' }}</p>
+          <p>{{ viewEmployeeDetail.doj |  date: 'dd-MM-yyy' }}</p>
         </div>
         <div class="col-6">
           <strong>Date of Leaving (DOL):</strong>
-          <p>{{ viewEmployeeDetail.dol | date: 'yyyy-MM-dd' }}</p>
+          <p>{{ viewEmployeeDetail.dol |  date: 'dd-MM-yyy'}}</p>
         </div>
       </div>
       <div class="row">
         <div class="col-12">
           <strong>Salary:</strong>
-          <p>{{ viewEmployeeDetail.salary |  number:'1.0-0' }}</p>
+          <p>{{ viewEmployeeDetail.salary |   currency:'INR':'symbol':'1.2-2' }}</p>
         </div>
       </div>
 

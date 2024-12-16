@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxLoadingModule } from 'ngx-loading';
+import { ToastrService } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ToastModule } from 'primeng/toast';
@@ -24,7 +25,7 @@ export class AddDesignationComponent implements OnInit{
   selectedItem:any;
   serverError: string;
 
-  constructor(private fb:FormBuilder,public ref: DynamicDialogRef,public config: DynamicDialogConfig,private messageService:MessageService,private designationService:DesignationService){
+  constructor(private fb:FormBuilder,public ref: DynamicDialogRef,public config: DynamicDialogConfig,private toastr: ToastrService,private designationService:DesignationService){
     this.designationDetailsForm = this.fb.group({
       designationId: [''],
       designationName: ['', [Validators.required,Validators.minLength(3),Validators.maxLength(50)]],
@@ -74,7 +75,11 @@ export class AddDesignationComponent implements OnInit{
             this.designationService.updateDesigName(formValue).subscribe((res)=>{
               if (res) {
                 this.isLoading = false
-                this.ref.close(formValue);
+                this.toastr.success('Designation name updated successfully!');
+                // setTimeout(() => {
+                  this.ref.close(formValue);
+                // }, 1000);
+        
               }
              })
            }else{
@@ -82,7 +87,10 @@ export class AddDesignationComponent implements OnInit{
             this.designationService.addDesigName(formValue).subscribe((res)=>{
               if (res) {
                 this.isLoading = false
-                this.ref.close(formValue);
+                this.toastr.success('Designation name saved successfully!');
+                // setTimeout(() => {
+                  this.ref.close(formValue);
+                // }, 1000);
               }
              })
           }

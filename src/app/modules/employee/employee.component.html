@@ -70,13 +70,13 @@
           <td>{{ rowData.firstName}}</td>
           <td>{{ rowData.lastName }}</td>
           <td>{{ rowData.gender }}</td>
-          <td>{{ rowData.dob | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ rowData.dob | date: 'dd-MM-yyy' }}</td>
           <td>{{ rowData.email }}</td>
           <td>{{ rowData.designation?.designationName  }}</td>
           <td>{{ rowData.mobile }}</td>
-          <td>{{ rowData.doj | date: 'yyyy-MM-dd' }}</td>
-          <td>{{ rowData.dol | date: 'yyyy-MM-dd' }}</td>
-          <td>{{ rowData.salary |  number:'1.0-0' }}</td>
+          <td>{{ rowData.doj | date: 'dd-MM-yyy'}}</td>
+          <td>{{ rowData.dol | date: 'dd-MM-yyy'}}</td>
+          <td>{{ rowData.salary | currency:'INR':'symbol':'1.2-2' }}</td>
           <td>
             <i class="pi pi-eye action-icon" (click)="viewEmployee(rowData)" title="View Invoice"></i>
             <i class="pi pi-pen-to-square action-icon" title="Edit Employee" (click)="editEmployee(rowData)"></i>

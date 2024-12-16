@@ -9,6 +9,7 @@ import { ConfirmationDialogComponent } from 'src/app/core/confirm/confirmation-d
 import { EmployeeService } from 'src/app/core/base/services/employee.service';
 import { Employee } from '../common';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-employee',
@@ -23,7 +24,7 @@ export class EmployeeComponent implements OnInit{
   employeeData :any
   ref: DynamicDialogRef | undefined;
   designationName: any;
-  constructor(public dialogService:DialogService,private employeeService:EmployeeService){
+  constructor(public dialogService:DialogService,private employeeService:EmployeeService,private toastr:ToastrService){
 
   }
   ngOnInit(): void {
@@ -35,7 +36,6 @@ export class EmployeeComponent implements OnInit{
       if(res){
         this.employeeData = res.employeeDTO
         this.designationName =  this.employeeData.designation
-          console.log(res)
       }
     })
   }
@@ -43,7 +43,6 @@ export class EmployeeComponent implements OnInit{
       this.ref = this.dialogService.open(AddEmployeeComponent, {
           closable: false,
           width: '55vw',
-          // height:'100%',
           contentStyle: { overflow: 'auto' },
       });
       this.ref.onClose.subscribe((data: any) => {
@@ -74,7 +73,7 @@ export class EmployeeComponent implements OnInit{
 viewEmployee(data) {
   this.ref = this.dialogService.open(ViewEmployeeComponent, {
       closable: false,
-      width: '55vw',
+      width: '37vw',
       data:data,
       contentStyle: { overflow: 'auto' },
   });
@@ -106,7 +105,7 @@ onConfirmDelete(data) {
   const id = data.employeeId
   this.employeeService.deleteEmployee(id).subscribe((res)=>{
     if(res){
-      console.log(res)
+      this.toastr.success('Employee deleted successfully!');
       this.getEmployeeDetail()
     }
   })
