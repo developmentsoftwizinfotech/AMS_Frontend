@@ -27,4 +27,7 @@ export class DesignationService {
   deletedesignName(id){
   return this.http.delete<any>(this.desigUrl +`api/Designation/DeleteDesignation/${id}`)
 }
+desibNameExist(name){
+  return this.http.get<any>(this.desigUrl +`api/Designation/CheckDesignationNameExists?designationName=${name}`)
+}
 }

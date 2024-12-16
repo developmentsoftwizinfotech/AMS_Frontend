@@ -25,4 +25,13 @@ export interface Employee {
       designationId: number;
       designationName: string;
     }
-  
+  export interface Attendance {
+    attendanceId:number,
+    attendanceDate: Date,
+    timeIn:string,
+    timeOut:string,
+    isLeaveApproved: boolean,
+    status: string,
+    isActive: boolean,
+    totalHours: string
+  }

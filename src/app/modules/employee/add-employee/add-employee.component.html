@@ -84,26 +84,36 @@
           <small *ngIf="employeeForm.get('dob')?.touched && employeeForm.get('dob')?.invalid" style="color: red;">
             Date of birth is required.
           </small>
+          <small *ngIf="employeeForm.get('dob')?.hasError('ageInvalid') && employeeForm.get('dob')?.touched" style="color: red;">
+            You must be at least 18 years old.
+          </small>
         </div>
  
       <!-- Email -->
       <div class="col-6 mb-3">
         <label for="email" class="form-label">Email<span style="color: red;">*</span></label>
         <input type="email" formControlName="email" id="email" class="form-control" 
-               placeholder="Enter Email" />
-        <span *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.invalid" style="color: red;">
-          Valid email is required.
-        </span>
+               placeholder="Enter Email" (blur)="checkDuplicateEmail()"/>
+          <small *ngIf="employeeForm.get('email')?.touched && employeeForm.get('email')?.invalid" style="color: red;">
+           Enter valid email is required.
+         </small>
+        <small *ngIf="serverError " style="color: red;">
+                  {{serverError}}
+        </small>
       </div>
   
       <!-- Mobile -->
       <div class="col-6 mb-3">
         <label for="mobile" class="form-label">Mobile<span style="color: red;">*</span></label>
         <input type="text" formControlName="mobile" id="mobile" class="form-control" 
-               placeholder="Enter Mobile Number" maxlength="10"/>
+               placeholder="Enter Mobile Number" maxlength="10" (blur)="checkDuplicateMobileNumber()"/>
         <small *ngIf="employeeForm.get('mobile')?.touched && employeeForm.get('mobile')?.invalid" style="color: red;">
           Mobile number is required.
         </small>
+        <small *ngIf="numExistError " style="color: red;">
+          {{numExistError}}
+        </small>
+        
       </div>
       <!-- Employee ID -->
       <div class="col-6 mb-3">
@@ -154,7 +164,11 @@
         inputId="icondisplay"
         placeholder="Select date of leave" 
         dateFormat="dd/mm/yy"
+        [minDate]=" this.employeeForm.get('doj')?.value"
       /> 
+      <small *ngIf="employeeForm.get('dol')?.hasError('dolBeforeDoj') && employeeForm.get('dol')?.touched" style="color: red;">
+        Date of leave must be later than the date of joining.
+      </small>
       </div>
   
    
@@ -162,38 +176,23 @@
       <!-- Salary -->
       <div class="col-6 mb-3">
         <label for="salary" class="form-label">Salary<span style="color: red;">*</span></label>
-        <input type="number" formControlName="salary" id="salary" class="form-control" 
-         
-               placeholder="Enter Salary" />
+        <input type="number" formControlName="salary" id="salary" class="form-control"   placeholder="Enter Salary" />
          <small *ngIf="employeeForm.get('salary')?.touched && employeeForm.get('salary')?.invalid" style="color: red;">
           Salary is required.
          </small>
       </div>
           <!-- Photo -->
-    <div class="col-6 mb-3">
-      <label for="PhotoPath" class="form-label">Choose a file<span >*</span></label>
-      <p-fileUpload
-      #fileUpload
-      type="file"
-      formControlName="photoPath"
-      (onSelect)="onUpload($event)"
-      [multiple]="false"
-      maxFileSize="10485760" 
-      accept="image/*,.pdf"
-      mode="basic"
-      class="custom-file-upload"
-    >
-  
-    </p-fileUpload>
+    <!-- <div class="col-6 mb-3">
+      <label for="photoPath" class="form-label">Choose a file</label><br>
+      <input type="file" formControlName="photoPath"  accept="image/*" (change)="onUpload($event)">
     </div>
 
   </div>
-  <div class="col-12"  >
-    <a [href]="previewUrl" nbButton status="primary" style="width: 19rem; word-wrap: break-word;" target="_blank">
-      View Uploaded {{previewUrl}}
-    </a>
-    <img *ngIf="previewUrl" [src]="previewUrl" alt="Selected Image" class="img-thumbnail mt-2" style="max-width: 200px;" />
-  </div>
+  <div class="col-12"  *ngIf="imageSrc" >
+    <a [href]="imageSrc" target="_blank">View Image</a>
+ 
+      <img [src]="imageSrc" alt="Selected Image" style="max-width: 20%; height: auto;" />
+  </div> -->
   <div class="float-end">
     <button type="reset" class="btn btn-danger me-3" (click)="close()">Cancel</button>
     <button type="submit" class="btn btn-primary" >Submit</button>

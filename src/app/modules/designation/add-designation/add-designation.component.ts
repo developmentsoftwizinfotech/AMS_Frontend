@@ -22,6 +22,7 @@ export class AddDesignationComponent implements OnInit{
   isEdit = false;
   desigName: any;
   selectedItem:any;
+  serverError: string;
 
   constructor(private fb:FormBuilder,public ref: DynamicDialogRef,public config: DynamicDialogConfig,private messageService:MessageService,private designationService:DesignationService){
     this.designationDetailsForm = this.fb.group({
@@ -48,7 +49,22 @@ export class AddDesignationComponent implements OnInit{
             this.desigName = res
         })
      }
-
+     checkDuplicateDesigName(): void {
+      const designationName = this.designationDetailsForm.get('designationName').value;
+        this.designationService.desibNameExist(designationName).subscribe(
+          (res) => {
+            if (res.checkDesignationNameExist === false) {
+              this.serverError = ''; 
+            } else {
+              this.serverError = 'Designation name already exists'; 
+            }
+          },
+          (error) => {
+            console.error('Error checking email existence', error);
+          }
+        );
+    }
+    
   Submit(){
     this.isLoading = true
     if(this.designationDetailsForm.valid){

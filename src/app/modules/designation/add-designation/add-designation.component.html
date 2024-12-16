@@ -18,7 +18,7 @@
             <label for="designationName" class="form-label">Designation Name<span style="color: red;">*</span></label>
             <input formControlName="designationName" id="designationName" class="form-control"
                 [ngClass]="{ 'is-invalid': designationDetailsForm.get('designationName')?.touched && designationDetailsForm.get('designationName')?.invalid }"
-                placeholder="Enter Designation Name" maxlength="50" />
+                placeholder="Enter Designation Name" maxlength="50" (blur)="checkDuplicateDesigName()"/>
                 <small
                 *ngIf="designationDetailsForm.get('designationName')?.invalid && 
                         (designationDetailsForm.get('designationName')?.touched || designationDetailsForm.get('designationName')?.dirty)">
@@ -34,8 +34,11 @@
                 <span style="color: red;" *ngIf="designationDetailsForm.get('designationName')?.errors?.['minlength']">
                   Designation Name should have at least 3 characters
                 </span>
+             
               </small>
-              
+              <span *ngIf="serverError " style="color: red;">
+                {{serverError}}
+              </span>
               
         </div>
     </div>

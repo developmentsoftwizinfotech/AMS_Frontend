@@ -27,4 +27,11 @@ export class EmployeeService {
   deleteEmployee(id){
   return this.http.delete<any>(this.baseUrl +`api/Employee/DeleteEmployee/${id}`)
 }
+employeeEmailExist(email){
+  return this.http.get<any>(this.baseUrl +`api/Employee/CheckEmployeeEmailExist?email=${email}`)
+}
+employeeMobileNumberExist(num){
+  return this.http.get<any>(this.baseUrl +`api/Employee/CheckEmployePhoneNumberExists?mobile=${num}`)
+}
+
 }

@@ -92,4 +92,21 @@ p-calendar.is-invalid {
   .custom-accept-btn.p-ripple {
     display: none; /* Remove ripple effect if needed */
   }
+  .card {
+    padding: 1rem;
+  }
   
+  .p-table {
+    margin-top: 1rem;
+  }
+  
+  button {
+    margin-right: 0.5rem;
+  }
+ ::ng-deep .p-calendar input {
+    width: 324px !important;
+    justify-content: center;
+}
+::ng-deep .custom-dropdown .p-dropdown-panel {
+  z-index: 9999; /* Adjust the z-index value as needed */
+}
