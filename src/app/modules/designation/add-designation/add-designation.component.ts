@@ -24,6 +24,7 @@ export class AddDesignationComponent implements OnInit{
   desigName: any;
   selectedItem:any;
   serverError: string;
+  desigNameValid: boolean = true;
 
   constructor(private fb:FormBuilder,public ref: DynamicDialogRef,public config: DynamicDialogConfig,private toastr: ToastrService,private designationService:DesignationService){
     this.designationDetailsForm = this.fb.group({
@@ -52,12 +53,20 @@ export class AddDesignationComponent implements OnInit{
      }
      checkDuplicateDesigName(): void {
       const designationName = this.designationDetailsForm.get('designationName').value;
+      if (this.formName === 'Edit' && designationName === this.selectedItem?.designationName) {
+        this.serverError = ''; 
+        this.desigNameValid = true
+        return; 
+      }
+  
         this.designationService.desibNameExist(designationName).subscribe(
           (res) => {
             if (res.checkDesignationNameExist === false) {
               this.serverError = ''; 
+              this.desigNameValid = true
             } else {
               this.serverError = 'Designation name already exists'; 
+              this.desigNameValid = false
             }
           },
           (error) => {
@@ -68,7 +77,7 @@ export class AddDesignationComponent implements OnInit{
     
   Submit(){
     this.isLoading = true
-    if(this.designationDetailsForm.valid){
+    if(this.designationDetailsForm.valid && this.desigNameValid ){
           
       const formValue = this.designationDetailsForm.value
            if(this.selectedItem !== undefined){

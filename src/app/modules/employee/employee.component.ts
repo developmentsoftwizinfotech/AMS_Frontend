@@ -43,7 +43,8 @@ export class EmployeeComponent implements OnInit{
       this.ref = this.dialogService.open(AddEmployeeComponent, {
           closable: false,
           width: '55vw',
-          contentStyle: { overflow: 'auto' },
+          contentStyle: { 'overflow-y': 'hidden' }
+
       });
       this.ref.onClose.subscribe((data: any) => {
           if (data) {
@@ -61,7 +62,6 @@ export class EmployeeComponent implements OnInit{
       closable: false,
       width: '55vw',
       data:data,
-      contentStyle: { overflow: 'auto' },
   });
   this.ref.onClose.subscribe((data: any) => {
       if (data) {

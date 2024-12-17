@@ -105,7 +105,7 @@ onConfirmDelete(data) {
   const id = data.designationId
   this.designationService.deletedesignName(id).subscribe((res)=>{
     if(res){
-      this.toastr.success('Employee deleted successfully!');
+      this.toastr.success('designation deleted successfully!');
       this.getDesigName()
     }
   })

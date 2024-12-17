@@ -76,7 +76,7 @@
           <td>{{ rowData.mobile }}</td>
           <td>{{ rowData.doj | date: 'dd-MM-yyy'}}</td>
           <td>{{ rowData.dol | date: 'dd-MM-yyy'}}</td>
-          <td>{{ rowData.salary | currency:'INR':'symbol':'1.2-2' }}</td>
+          <td style="text-align: right;">{{ rowData.salary | currency:'INR':'symbol':'1.2-2' }}</td>
           <td>
             <i class="pi pi-eye action-icon" (click)="viewEmployee(rowData)" title="View Invoice"></i>
             <i class="pi pi-pen-to-square action-icon" title="Edit Employee" (click)="editEmployee(rowData)"></i>
