@@ -73,6 +73,10 @@ export class AddEmployeeComponent implements OnInit {
     if (this.selectedItem !== undefined) {
       this.formName = 'Edit'
       this.isEditing = true
+      const formattedSalary = this.selectedItem.salary
+      ? this.selectedItem.salary.toFixed(2)  
+      : '0.00'; 
+
       this.employeeForm.setValue({
         employeeId: this.selectedItem.employeeId,
         designationId: this.selectedItem.designationId,
@@ -84,7 +88,7 @@ export class AddEmployeeComponent implements OnInit {
         doj: new Date(this.selectedItem.doj),
         dol: this.selectedItem.dol ? new Date(this.selectedItem.dol) : null,
         dob: new Date(this.selectedItem.dob),
-        salary: this.selectedItem.salary,
+        salary: formattedSalary,
         createdDate: this.selectedItem.createdDate,
         isActive: true,
         photoPath: this.selectedItem.photoPath,
@@ -189,7 +193,22 @@ export class AddEmployeeComponent implements OnInit {
       }
 
   }
-
+  formatSalary(event: any): void {
+    let value = event.target.value.replace(/[^\d.]/g, ''); // Remove any non-numeric characters
+    // If the value doesn't have a decimal point, append ".00"
+    if (value.indexOf('.') === -1) {
+      value = value.slice(0, 8); // Allow only 8 digits before the decimal
+      value = `${value}.00`; // Add decimal part if missing
+    } else {
+      // If there's a decimal point, keep only two digits after it
+      let [integer, decimal] = value.split('.');
+      decimal = decimal ? decimal.slice(0, 2) : '00'; // If decimal part is missing, add '00'
+      value = `${integer.slice(0, 8)}.${decimal}`;
+    }
+  
+    event.target.value = value;
+  }
+  
   checkDuplicateEmail(): void {
     const email = this.employeeForm.get('email')?.value;
     if (this.formName === 'Edit' && email === this.selectedItem?.email) {

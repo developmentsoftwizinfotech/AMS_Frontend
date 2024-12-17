@@ -6,44 +6,41 @@
 
     <!-- First Name -->
     <div class="col-4 mb-3">
-      <label for="firstName" class="form-label">First Name<span style="color: red;">*</span></label><small *ngIf="employeeForm.get('firstName')?.invalid && 
-      (employeeForm.get('firstName')?.touched)">
-
-        <!-- Maxlength Validation -->
-        <span style="color: red;" *ngIf="employeeForm.get('firstName')?.errors?.['maxlength']">
-          First Name should have at most 50 characters
-        </span>
-        <!-- Minlength Validation -->
-        <span style="color: red;" *ngIf="employeeForm.get('firstName')?.errors?.['minlength']">
-          First Name should have at least 3 characters
-        </span>
-
-      </small>
+      <label for="firstName" class="form-label">First Name<span style="color: red;">*</span></label>
       <input formControlName="firstName" id="firstName" class="form-control" placeholder="Enter First Name"
-        tabindex="-1"
+        tabindex="-1" maxlength="50"
         [ngClass]="{ 'is-invalid':employeeForm.get('firstName')?.touched && employeeForm.get('firstName')?.invalid }" />
-
+        <!-- <small *ngIf="employeeForm.get('firstName')?.invalid && 
+        (employeeForm.get('firstName')?.touched)"> -->
+  
+          <!-- Maxlength Validation -->
+          <!-- <span style="color: red;" *ngIf="employeeForm.get('firstName')?.errors?.['maxlength']">
+            First Name should have at most 50 characters
+          </span> -->
+          <!-- Minlength Validation -->
+          <!-- <span style="color: red;" *ngIf="employeeForm.get('firstName')?.errors?.['minlength']">
+            First Name should have at least 3 characters
+          </span> -->
+        <!-- </small> -->
     </div>
 
     <!-- Last Name -->
     <div class="col-4 mb-3">
       <label for="lastName" class="form-label">Last Name<span style="color: red;">*</span></label>
-      <small *ngIf="employeeForm.get('lastName')?.invalid && 
-      (employeeForm.get('lastName')?.touched || employeeForm.get('lastName')?.dirty)">
-
-        <!-- Maxlength Validation -->
-        <span style="color: red;" *ngIf="employeeForm.get('lastName')?.errors?.['maxlength']">
-          Last Name should have at most 50 characters
-        </span>
-        <!-- Minlength Validation -->
-        <span style="color: red;" *ngIf="employeeForm.get('lastName')?.errors?.['minlength']">
-          Last Name should have at least 3 characters
-        </span>
-
-      </small>
+     
       <input formControlName="lastName" id="lastName" class="form-control" placeholder="Enter Last Name" tabindex="-1"
-        [ngClass]="{ 'is-invalid': employeeForm.get('lastName')?.touched && employeeForm.get('lastName')?.invalid }" />
-
+        [ngClass]="{ 'is-invalid': employeeForm.get('lastName')?.touched && employeeForm.get('lastName')?.invalid }" maxlength="50" />
+        <!-- <small *ngIf="employeeForm.get('lastName')?.invalid && 
+        (employeeForm.get('lastName')?.touched || employeeForm.get('lastName')?.dirty)"> -->
+          <!-- Maxlength Validation -->
+          <!-- <span style="color: red;" *ngIf="employeeForm.get('lastName')?.errors?.['maxlength']">
+            Last Name should have at most 50 characters
+          </span> -->
+          <!-- Minlength Validation -->
+          <!-- <span style="color: red;" *ngIf="employeeForm.get('lastName')?.errors?.['minlength']">
+            Last Name should have at least 3 characters
+          </span>
+        </small> -->
     </div>
 
     <!-- Gender -->
@@ -110,8 +107,7 @@
         </small> -->
 
     </div>
-    <!-- Employee ID -->
-    <!-- Employee ID -->
+    <!--   Designation Name  -->
     <div class="col-4 mb-3 d-flex flex-column">
       <label for="designationId" class="form-label">
         Designation Name <span style="color: red;">*</span>
@@ -154,14 +150,15 @@
 
     <!-- Salary -->
     <div class="col-4 mb-3">
-      <label for="salary" class="form-label">Salary<span style="color: red;">*</span></label> <small
+      <label for="salary" class="form-label">Salary<span style="color: red;">*</span></label>
+      <input type="text" formControlName="salary" id="salary" class="form-control" placeholder="Enter Salary"
+        [ngClass]="{ 'is-invalid': employeeForm.get('salary')?.touched && employeeForm.get('salary')?.invalid }"
+        (keypress)="allowOnlyNumbers($event)" maxlength="8" (input)="formatSalary($event)"/>
+        <!-- <small
         *ngIf="employeeForm.get('salary')?.dirty && employeeForm.get('salary')?.hasError('maxlength')"
         style="color: red;">
         Salary should have at most 8 characters
-      </small>
-      <input type="text" formControlName="salary" id="salary" class="form-control" placeholder="Enter Salary"
-        [ngClass]="{ 'is-invalid': employeeForm.get('salary')?.touched && employeeForm.get('salary')?.invalid }"
-        (keypress)="allowOnlyNumbers($event)" />
+      </small> -->
       <!-- <small *ngIf="employeeForm.get('salary')?.touched && employeeForm.get('salary')?.errors?.['required']" style="color: red;">
           Salary is required.
         </small> -->
@@ -194,10 +191,8 @@
             title="Cancel Image">
             <i class="pi pi-times"></i>
           </button>
-       
       </div>
     </div>
-
 
   </div>
   <div class="float-end">
