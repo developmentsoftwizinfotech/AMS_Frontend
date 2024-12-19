@@ -78,7 +78,8 @@
           <td>{{ rowData.dol | date: 'dd-MM-yyy'}}</td>
           <td style="text-align: right;">{{ rowData.salary | currency:'INR':'symbol':'1.2-2' }}</td>
           <td>
-            <i class="pi pi-eye action-icon" (click)="viewEmployee(rowData)" title="View Invoice"></i>
+            <i  class="pi pi-check-circle action-icon"  title="View  Employee AttendanceSheet" (click)="viewEmployeeAttendanceSheet(rowData)"> </i>
+            <i class="pi pi-eye action-icon" (click)="viewEmployee(rowData)" title="View Employee Details"></i>
             <i class="pi pi-pen-to-square action-icon" title="Edit Employee" (click)="editEmployee(rowData)"></i>
             <i
             class="pi pi-trash action-icon text-danger"

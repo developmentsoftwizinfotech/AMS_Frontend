@@ -13,6 +13,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmationDialogComponent } from 'src/app/core/confirm/confirmation-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-designation',
@@ -108,7 +109,13 @@ onConfirmDelete(data) {
       this.toastr.success('designation deleted successfully!');
       this.getDesigName()
     }
-  })
+  },(error: HttpErrorResponse) => {
+    if (error.error  && error.error.Detail === "This designation name is used in the employee table.") {
+      this.toastr.info('This designation cannot be deleted because it is already in use')
+    } else {
+      console.error('An unexpected error occurred:', error.message);
+    }})
+    
 }
 
 onCancelDelete() {

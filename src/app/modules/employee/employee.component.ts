@@ -10,6 +10,9 @@ import { EmployeeService } from 'src/app/core/base/services/employee.service';
 import { Employee } from '../common';
 import { ViewEmployeeComponent } from './view-employee/view-employee.component';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { CustomStateError } from 'src/app/shared/custom-error';
+import { ViewEmployeeAttendanceComponent } from './view-employee-attendance/view-employee-attendance.component';
 
 @Component({
   selector: 'app-employee',
@@ -24,7 +27,9 @@ export class EmployeeComponent implements OnInit{
   employeeData :any
   ref: DynamicDialogRef | undefined;
   designationName: any;
-  constructor(public dialogService:DialogService,private employeeService:EmployeeService,private toastr:ToastrService){
+    yearDate = new Date();
+    customDatePicker = new CustomStateError();
+  constructor(public dialogService:DialogService,private employeeService:EmployeeService,private toastr:ToastrService,private router:Router){
 
   }
   ngOnInit(): void {
@@ -36,6 +41,7 @@ export class EmployeeComponent implements OnInit{
       if(res){
         this.employeeData = res.employeeDTO
         this.designationName =  this.employeeData.designation
+
       }
     })
   }
@@ -71,7 +77,11 @@ export class EmployeeComponent implements OnInit{
   })
 }
 viewEmployee(data) {
-  this.ref = this.dialogService.open(ViewEmployeeComponent, {
+  // const employeeId = data.employeeId;
+  // const yearValue: string = this.customDatePicker.changeDateTimeZone(data.createdDate);
+  // const employeeDate: Date = new Date(yearValue);
+  // const formattedDate = employeeDate.toISOString().split('T')[0]; 
+  this.ref = this.dialogService.open(ViewEmployeeAttendanceComponent, {
       closable: false,
       width: '37vw',
       data:data,
@@ -110,7 +120,18 @@ onConfirmDelete(data) {
     }
   })
 }
-
+getFormValue() {
+  const yearValue: string = this.customDatePicker.changeDateTimeZone(this.yearDate);
+  const yearDate: Date = new Date(yearValue);
+  // this.getEmployeeAttendance(yearDate);
+}
+viewEmployeeAttendanceSheet(data) {
+  const employeeId = data.employeeId;
+  const yearValue: string = this.customDatePicker.changeDateTimeZone(data.createdDate);
+  const employeeDate: Date = new Date(yearValue);
+  const formattedDate = employeeDate.toISOString().split('T')[0]; 
+  this.router.navigate(['/employee-attendance', employeeId, formattedDate]);
+}
 
 onCancelDelete() {
   console.log('Delete action cancelled.');
@@ -120,4 +141,5 @@ onCancelDelete() {
           this.ref.close();
       }
   }
+ 
 }

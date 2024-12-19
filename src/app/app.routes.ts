@@ -29,6 +29,14 @@ export const routes: Routes = [
         path: 'attendance',
         loadComponent: () => import('./modules/attendance/attendance.component').then((m) => m.AttendanceComponent)
       }, 
+      {
+        path: 'view-attendance',
+        loadComponent: () => import('./modules/attendance/view-attendance/view-attendance.component').then((m) => m.ViewAttendanceComponent)
+      },
+      {
+        path: 'employee-attendance/:id/:attendanceDate',
+        loadComponent: () => import('./modules/employee/view-employee-attendance/view-employee-attendance.component').then((m) => m.ViewEmployeeAttendanceComponent)
+      },
     ]
   },
   {

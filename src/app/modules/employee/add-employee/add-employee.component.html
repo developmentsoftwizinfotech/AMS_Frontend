@@ -135,7 +135,7 @@
     </div>
 
     <!-- Date of Leave -->
-    <div class="col-4 mb-3">
+    <!-- <div class="col-4 mb-3">
       <label for="dol" class="form-label">Date of Leaving</label>
       <p-calendar formControlName="dol" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"
         placeholder="Select date of leaving" dateFormat="dd/mm/yy" [minDate]=" this.employeeForm.get('doj')?.value"
@@ -144,7 +144,7 @@
         style="color: red;">
         Date of leave must be later than the date of joining.
       </small>
-    </div>
+    </div> -->
 
 
 
@@ -153,7 +153,7 @@
       <label for="salary" class="form-label">Salary<span style="color: red;">*</span></label>
       <input type="text" formControlName="salary" id="salary" class="form-control" placeholder="Enter Salary"
         [ngClass]="{ 'is-invalid': employeeForm.get('salary')?.touched && employeeForm.get('salary')?.invalid }"
-        (keypress)="allowOnlyNumbers($event)" maxlength="8" (input)="formatSalary($event)"/>
+        (keypress)="allowOnlyNumbers($event)" maxlength="10" (input)="formatSalary($event)"/>
         <!-- <small
         *ngIf="employeeForm.get('salary')?.dirty && employeeForm.get('salary')?.hasError('maxlength')"
         style="color: red;">
@@ -186,6 +186,7 @@
           <!-- Cancel button -->
           <button 
             type="button" 
+            *ngIf="!isEditing"
             class="btn btn-danger btn-sm cancel-btn" 
              (click)="removeSelectedFile() "
             title="Cancel Image">

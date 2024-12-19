@@ -33,5 +33,9 @@ employeeEmailExist(email){
 employeeMobileNumberExist(num){
   return this.http.get<any>(this.baseUrl +`api/Employee/CheckEmployePhoneNumberExists?mobile=${num}`)
 }
+EmployeeGetById(id,date){
+  return this.http.get<any>(this.baseUrl +`api/AttendanceSheet/AttendanceReport?employeeId=${id}&attendanceDate=${date}`)
+}
+
 
 }

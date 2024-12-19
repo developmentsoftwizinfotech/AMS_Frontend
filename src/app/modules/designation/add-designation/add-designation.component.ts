@@ -85,9 +85,7 @@ export class AddDesignationComponent implements OnInit{
               if (res) {
                 this.isLoading = false
                 this.toastr.success('Designation name updated successfully!');
-                // setTimeout(() => {
-                  this.ref.close(formValue);
-                // }, 1000);
+                  this.ref.close(formValue)
         
               }
              })
@@ -97,16 +95,17 @@ export class AddDesignationComponent implements OnInit{
               if (res) {
                 this.isLoading = false
                 this.toastr.success('Designation name saved successfully!');
-                // setTimeout(() => {
                   this.ref.close(formValue);
-                // }, 1000);
               }
-             })
+             },(error)=>{
+
+             }
+            )
           }
         }
           else{
         this.isLoading = false;
-        this.designationDetailsForm.markAllAsTouched(); // Marks all fields as touched to show validation errors
+        this.designationDetailsForm.markAllAsTouched(); 
         return;
       }
     }

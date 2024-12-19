@@ -83,6 +83,22 @@ const NavigationItems = [
     ]
   },
   // {
+  //   id: 'view-attendance',
+  //   title: 'View-Attendance',
+  //   type: 'group',
+  //   icon: 'icon-navigation',
+  //   children: [
+  //     {
+  //       id: 'view-attendance',
+  //       title: 'View - Attendance',
+  //       type: 'item',
+  //       url: '/view-attendance',
+  //       classes: 'nav-item',
+  //       icon: 'ti ti-table'
+  //     }
+  //   ]
+  // },
+  // {
   //   id: 'page',
   //   title: 'Pages',
   //   type: 'group',

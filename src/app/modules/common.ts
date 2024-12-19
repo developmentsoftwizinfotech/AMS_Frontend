@@ -25,13 +25,32 @@ export interface Employee {
       designationId: number;
       designationName: string;
     }
-  export interface Attendance {
-    attendanceId:number,
+  export interface AttendanceSheet {
+    attendanceSheetId:number,
     attendanceDate: Date,
     timeIn:string,
     timeOut:string,
     isLeaveApproved: boolean,
-    status: string,
-    isActive: boolean,
-    totalHours: string
+    employeeId: number,
+    isAbsent: boolean
   }
+
+  export interface AttendanceSheet{
+      employeeId: number,
+      firstName: string,
+      lastName: string,
+      monthlySalary: number,
+      attendanceSheetViewListDTO: {
+        attendanceSheetId: number,
+        employeeId: number,
+        employee: null,
+        attendanceDate: Date,
+        timeIn: string,
+        timeOut:string,
+        isLeaveApproved: false,
+        isAbsent: false,
+        leaveStatus: string,
+        totalHours: number
+      
+  }
+}

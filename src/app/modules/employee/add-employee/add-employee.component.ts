@@ -45,6 +45,7 @@ export class AddEmployeeComponent implements OnInit {
   isEmailValid: boolean = true;
   isEditing: any;
   editEmailValid: boolean =true;
+  imageRemove: boolean;
 
   constructor(private fb: FormBuilder, public ref: DynamicDialogRef, private employeeService: EmployeeService, private designationService: DesignationService, private config: DynamicDialogConfig, private toastr: ToastrService,) {
     this.employeeForm = this.fb.group({
@@ -56,7 +57,6 @@ export class AddEmployeeComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       doj: [null, [Validators.required]],
-      dol: [null],
       dob: ['', [Validators.required, this.ageValidator(18)]],
       salary: ['', [Validators.required, Validators.maxLength(10)]],
       createdDate: [new Date().toISOString()],
@@ -86,7 +86,6 @@ export class AddEmployeeComponent implements OnInit {
         email: this.selectedItem.email,
         mobile: this.selectedItem.mobile,
         doj: new Date(this.selectedItem.doj),
-        dol: this.selectedItem.dol ? new Date(this.selectedItem.dol) : null,
         dob: new Date(this.selectedItem.dob),
         salary: formattedSalary,
         createdDate: this.selectedItem.createdDate,
@@ -150,11 +149,6 @@ export class AddEmployeeComponent implements OnInit {
           date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
           formValue.doj = date.toISOString().split('T')[0];
         }
-        if (formValue.dol) {
-          const date = new Date(formValue.dol);
-          date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-          formValue.dol = date.toISOString().split('T')[0];
-        }
         if (this.selectedItem !== undefined) {
           this.employeeService.updateEmployee(formValue).subscribe((res) => {
             this.editEmailValid = true
@@ -165,14 +159,14 @@ export class AddEmployeeComponent implements OnInit {
               this.ref.close(formValue);
             }
           },(error) => {
-            if (error.status === 500) {
-                  this.editEmailValid = false
-                  this.serverError = 'Email already exists';
-              // this.router.navigate(['/error']);
-            }else{
-              this.editEmailValid = true
-              this.serverError = '';
-            }
+            // if (error.status === 500) {
+            //       this.editEmailValid = false
+            //       this.serverError = 'Email already exists';
+            //   // this.router.navigate(['/error']);
+            // }else{
+            //   this.editEmailValid = true
+            //   this.serverError = '';
+            // }
           })
         
         } else {
@@ -194,20 +188,23 @@ export class AddEmployeeComponent implements OnInit {
 
   }
   formatSalary(event: any): void {
-    let value = event.target.value.replace(/[^\d.]/g, ''); // Remove any non-numeric characters
-    // If the value doesn't have a decimal point, append ".00"
+    let value = event.target.value.replace(/[^\d.]/g, ''); 
     if (value.indexOf('.') === -1) {
-      value = value.slice(0, 8); // Allow only 8 digits before the decimal
-      value = `${value}.00`; // Add decimal part if missing
+      value = value.slice(0, 8);
+      value = `${value}.00`;
     } else {
-      // If there's a decimal point, keep only two digits after it
       let [integer, decimal] = value.split('.');
-      decimal = decimal ? decimal.slice(0, 2) : '00'; // If decimal part is missing, add '00'
+      decimal = decimal ? decimal.slice(0, 2) : '00'; 
       value = `${integer.slice(0, 8)}.${decimal}`;
     }
-  
     event.target.value = value;
+    // Calculate the cursor position to keep it before the decimal
+    const cursorPosition = value.indexOf('.') !== -1 ? value.indexOf('.') : value.length;
+    setTimeout(() => {
+      event.target.setSelectionRange(cursorPosition, cursorPosition);
+    });
   }
+  
   
   checkDuplicateEmail(): void {
     const email = this.employeeForm.get('email')?.value;
@@ -294,11 +291,15 @@ export class AddEmployeeComponent implements OnInit {
     reader.readAsDataURL(file); // Convert file to Base64
   }
   removeSelectedFile(): void {
+    this.imageRemove = true;
     this.imageSrc = '';
-    const attachments = this.employeeForm.get('PhotoPath').value;
-    const updatedAttachments = attachments.filter((attachment: any) => attachment.OrigionalFileName !== this.imageSrc);
-    this.employeeForm.get('PhotoPath').setValue(updatedAttachments);
+    const attachments = this.employeeForm.get('photoPath').value;
+    if (typeof attachments === 'string') {
+      this.employeeForm.get('photoPath').setValue('');
+    }
+    this.employeeForm.get('base64')?.setValue('');
   }
+  
 
   close() {
     this.ref.close();

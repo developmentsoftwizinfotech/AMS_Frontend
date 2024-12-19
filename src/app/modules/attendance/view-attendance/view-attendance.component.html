@@ -1,0 +1,79 @@
+
+<ngx-loading [show]="isLoading"></ngx-loading>
+
+<div class="card">
+  <p-table [value]="employeeAttendanceSheet"  [rows]="5" [responsiveLayout]="'scroll'">
+
+      <ng-template pTemplate="caption">
+        <div class="row">
+          <div class="col-md-8 mt-3 d-flex">
+            <p-calendar 
+            [(ngModel)]="yearDate"
+            [iconDisplay]="'input'" 
+            [showIcon]="true" 
+            inputId="icondisplay"
+            placeholder="Select date of leave" 
+            dateFormat="dd-MM-yy"
+            (ngModelChange)="getFormValue()"
+        
+          /> 
+          </div>
+      </div>
+        <!-- <div class="col-md-8 mt-3 mb-4 d-flex justify-content-center">
+      
+        </div>
+        <div class="col-md-4  text-end">
+          <span class="p-input-icon-left p-ml-auto">
+
+          </span>
+        </div> -->
+      </ng-template>
+
+ 
+    <ng-template pTemplate="header">
+      <tr>
+        <th  [style]="{'width': '50%'}">Employee Name</th>
+        <th [style]="{'padding-left': '1%'}">Time In</th>
+        <th [style]="{'padding-left': '1%'}" >Time Out</th>
+        <th [style]="{'padding-left': '1%'}" >Total Hour</th>
+        <th [style]="{'padding-left': '1%'}" >Salary</th>
+        <th [style]="{'padding-left': '3%'}">Leave </th>
+        <th [style]="{'padding-left': '3%'}">Absent</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-attendance  let-i="rowIndex">
+      <tr>
+        <td>{{ attendance.employee.firstName }} {{ attendance.employee.lastName }}</td>
+        <td>
+            <div *ngIf="!attendance.timeIn; else timeInTemplate">-</div>
+            <ng-template #timeInTemplate>
+              {{ attendance.timeIn }}
+            </ng-template>
+          </td>
+          
+          <td>
+            <div *ngIf="!attendance.timeOut; else timeOutTemplate">-</div>
+            <ng-template #timeOutTemplate>
+              {{attendance.timeOut}}
+            </ng-template>
+          </td>
+          <td [style]="{'text-align': 'center'}">
+            <div *ngIf="!attendance.isLeaveApproved; else isLeaveApprovedTemplate">-</div>
+            <ng-template #isLeaveApprovedTemplate>
+                {{attendance.isLeaveApproved}}
+            </ng-template>
+          </td>
+          <td [style]="{'text-align': 'center'}">
+            <div *ngIf="!attendance.isAbsent; else isAbsentTemplate">-</div>
+            <ng-template #isAbsentTemplate>
+                {{attendance.isAbsent}}
+            </ng-template>
+          </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+  <p-toast />
+  <p-confirmDialog />

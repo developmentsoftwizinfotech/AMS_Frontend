@@ -1,26 +1,11 @@
 
 <ngx-loading [show]="isLoading"></ngx-loading>
 
-<div class="row">
-  <!-- <div class="col-md-4 mt-3 d-flex">
-     {{formName}} Designation 
-  </div> -->
-  <!-- <div class="col-md-12 mt-3 mb-4 d-flex justify-content-center"> -->
-    <!-- <p-calendar 
-    [iconDisplay]="'input'" 
-    [showIcon]="true" 
-    inputId="icondisplay"
-    placeholder="Select date of leave" 
-    dateFormat="yy-MM-dd"
-    (onSelect)="getEmployeeAttendance($event)"
-  />  -->
-      <!-- <button type="reset" class="btn btn-danger me-3" (click)="close()">Cancel</button>
-      <button type="submit" class="btn btn-primary" (click)="Submit()">{{ isEdit ? 'Update' : 'Submit' }}</button> -->
-  <!-- </div> -->
+<div class="row">  
 </div>
 
 <div class="card">
-  <p-table [value]="employeeDetail"  [rows]="5" [responsiveLayout]="'scroll'">
+  <p-table [value]="employeeAttendance"  [rows]="5" [responsiveLayout]="'scroll'">
 
       <ng-template pTemplate="caption">
         <div class="row">
@@ -31,57 +16,33 @@
             [showIcon]="true" 
             inputId="icondisplay"
             placeholder="Select date of leave" 
-            dateFormat="yy-MM-dd"
+            dateFormat="dd-MM-yy"
             (ngModelChange)="getFormValue()"
         
           /> 
           </div>
-          <div class="col-md-4 d-flex justify-content-end">
-            <button pButton label="Add" icon="pi pi-plus" class="p-button-success mt-3" (click)="onAdd()"></button>
-          </div>
-      </div>
-        <!-- <div class="col-md-8 mt-3 mb-4 d-flex justify-content-center">
-      
-        </div>
-        <div class="col-md-4  text-end">
-          <span class="p-input-icon-left p-ml-auto">
 
-          </span>
-        </div> -->
+      </div>
+
       </ng-template>
 
  
     <ng-template pTemplate="header">
       <tr>
-        <th>Employee Name</th>
-        <th  [style]="{'text-align': 'center'}">Time In</th>
-        <th  [style]="{'text-align': 'center'}">Time Out</th>
-        <th [style]="{'text-align': 'center'}"  >Status</th>
-        <th  [style]="{'text-align': 'center'}"  >Leave Approved</th>
-        <th>Total Hours</th>
+        <th  [style]="{'width': '50%'}">Employee Name</th>
+        <th [style]="{'padding-left': '3%'}">Time In</th>
+        <th [style]="{'padding-left': '3%'}" >Time Out</th>
+        <th [style]="{'padding-left': '2%'}">Leave </th>
+        <th [style]="{'padding-left': '2%'}">Absent</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-attendance>
+    <ng-template pTemplate="body" let-attendance  let-i="rowIndex">
       <tr>
-        <td>{{ attendance.firstName }} {{ attendance.lastName }}</td>
-        <td><input id="timeIn"  [(ngModel)]="attendance.timeIn" class="form-control" type="time"></td>
-        <td><input id="timeOut"  [(ngModel)]="attendance.timeOut" class="form-control" type="time"></td>
-        <td>
-          <p-dropdown 
-            id="leaveTypes" 
-            [options]="leaveTypes"
-            optionLabel="label"
-             optionValue="value" 
-            placeholder="Select Status" 
-            [(ngModel)]="attendance.status"
-            [style]="{'text-align': 'center'}"  
-            class="custom-dropdown"
-            >
-          </p-dropdown>  
-
-        </td>
-        <td [style]="{'text-align': 'center'}"  ><input id="approvedLeave" class="form-check-input" type="checkbox"   [(ngModel)]="attendance.isLeaveApproved"></td>
-        <td>{{ attendance.totalHours }}</td>
+        <td>{{ attendance.employee.firstName }} {{ attendance.employee.lastName }}</td>
+        <td><input id="timeIn"  [(ngModel)]="attendance.timeIn" class="form-control" type="time"    [min]="minTimeIn"  (ngModelChange)="onAttendanceChange(attendance,'timeIn')" [disabled]="attendance.isLeaveApproved || attendance.isAbsent"></td>
+        <td><input id="timeOut"  [(ngModel)]="attendance.timeOut" class="form-control" type="time"   [max]="maxTimeOut"  (ngModelChange)="onAttendanceChange(attendance,'timeOut')" [disabled]="!attendance.timeIn || attendance.isLeaveApproved || attendance.isAbsent "  ></td>
+        <td [style]="{'text-align': 'center'}"  ><input id="approvedLeave" class="form-check-input" type="checkbox"   (ngModelChange)="onAttendanceChange(attendance,'leave')" [(ngModel)]="attendance.isLeaveApproved" [disabled]="attendance.isAbsent"></td>
+        <td [style]="{'text-align': 'center'}"  ><input id="absent" class="form-check-input" type="checkbox"   (ngModelChange)="onAttendanceChange(attendance,'absent')" [(ngModel)]="attendance.isAbsent"></td>
       </tr>
     </ng-template>
   </p-table>
